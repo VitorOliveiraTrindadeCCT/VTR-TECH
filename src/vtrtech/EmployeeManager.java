@@ -45,7 +45,50 @@ public class EmployeeManager {
         }
     }
 
-    
+    public void sortAndShowFirst20() {
+    List<String> fullNames = new ArrayList<>();
+    for (Employee e : employees) {
+        fullNames.add(e.getFirstName() + " " + e.getLastName());
+    }
+
+    List<String> sortedNames = mergeSort(fullNames);
+
+    System.out.println("Top 20 sorted names:");
+    for (int i = 0; i < Math.min(20, sortedNames.size()); i++) {
+        System.out.println((i + 1) + ". " + sortedNames.get(i));
+    }
+}
+
+private List<String> mergeSort(List<String> list) {
+    if (list.size() <= 1) {
+        return list;
+    }
+
+    int mid = list.size() / 2;
+    List<String> left = mergeSort(new ArrayList<>(list.subList(0, mid)));
+    List<String> right = mergeSort(new ArrayList<>(list.subList(mid, list.size())));
+
+    return merge(left, right);
+}
+
+private List<String> merge(List<String> left, List<String> right) {
+    List<String> result = new ArrayList<>();
+    int i = 0, j = 0;
+
+    while (i < left.size() && j < right.size()) {
+        if (left.get(i).compareToIgnoreCase(right.get(j)) <= 0) {
+            result.add(left.get(i++));
+        } else {
+            result.add(right.get(j++));
+        }
+    }
+
+    while (i < left.size()) result.add(left.get(i++));
+    while (j < right.size()) result.add(right.get(j++));
+
+    return result;
+}
+
     
     public void generateRandomEmployee() {
         String[] firstNames = {"John", "Jane", "Alice", "Bob", "Emily", "David"};
@@ -71,8 +114,17 @@ public class EmployeeManager {
         Employee randomEmployee = new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
         employees.add(randomEmployee);
     }
-
+public void searchAndPrint(String fullName) {
+    Employee found = searchEmployee(fullName);
+    if (found != null) {
+        System.out.println("Found: " + found);
+    } else {
+        System.out.println("Employee not found.");
+    }
+}
     public List<Employee> getEmployees() {
         return employees;
     }
 }
+
+
