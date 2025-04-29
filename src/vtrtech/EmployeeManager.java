@@ -25,15 +25,32 @@ public class EmployeeManager {
         employees.add(employee);
     }
 
-    public Employee searchEmployee(String name) {
-        for (Employee employee : employees) {
-            String fullName = employee.getFirstName() + " " + employee.getLastName();
-            if (fullName.equalsIgnoreCase(name.trim())) {
-                return employee;
-            }
-        }
+    // Search for an employee using binary search
+public Employee searchEmployee(String fullName) {
+    sortEmployees(); // Guarantee list is sorted
+    return binarySearchEmployee(fullName, 0, employees.size() - 1);
+}
+
+private Employee binarySearchEmployee(String fullName, int left, int right) {
+    if (left > right) {
         return null;
     }
+
+    int mid = left + (right - left) / 2;
+    Employee midEmployee = employees.get(mid);
+    String midName = midEmployee.getFirstName() + " " + midEmployee.getLastName();
+
+    int compare = midName.compareToIgnoreCase(fullName.trim());
+
+    if (compare == 0) {
+        return midEmployee;
+    } else if (compare < 0) {
+        return binarySearchEmployee(fullName, mid + 1, right);
+    } else {
+        return binarySearchEmployee(fullName, left, mid - 1);
+    }
+}
+
 
     public void sortEmployees() {
         Collections.sort(employees, Comparator.comparing(Employee::getFirstName).thenComparing(Employee::getLastName));
@@ -45,19 +62,12 @@ public class EmployeeManager {
         }
     }
 
-    public void sortAndShowFirst20() {
-    List<String> fullNames = new ArrayList<>();
-    for (Employee e : employees) {
-        fullNames.add(e.getFirstName() + " " + e.getLastName());
-    }
-
-    List<String> sortedNames = mergeSort(fullNames);
-
-    System.out.println("Top 20 sorted names:");
-    for (int i = 0; i < Math.min(20, sortedNames.size()); i++) {
-        System.out.println((i + 1) + ". " + sortedNames.get(i));
-    }
+    public List<Employee> getTop20SortedEmployees() {
+    List<Employee> sortedList = new ArrayList<>(employees);
+    sortedList.sort(Comparator.comparing(e -> (e.getFirstName() + " " + e.getLastName())));
+    return sortedList.subList(0, Math.min(20, sortedList.size()));
 }
+
 
 private List<String> mergeSort(List<String> list) {
     if (list.size() <= 1) {
@@ -90,41 +100,43 @@ private List<String> merge(List<String> left, List<String> right) {
 }
 
     
-    public void generateRandomEmployee() {
-        String[] firstNames = {"John", "Jane", "Alice", "Bob", "Emily", "David"};
-        String[] lastNames = {"Smith", "Johnson", "Brown", "Williams", "Jones", "Garcia"};
-        String[] genders = {"Male", "Female"};
-        String[] departments = {"IT", "HR", "Finance", "Marketing"};
-        String[] positions = {"Manager", "Assistant", "Team Lead"};
-        String[] jobTitles = {"Software Engineer", "HR Specialist", "Accountant", "Marketing Analyst"};
-        String[] companies = {"VTR-TECH", "TechCorp", "InnovateX"};
+    public Employee generateRandomEmployee() {
+    String[] firstNames = {"Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adriane", "Alex", "Alice", "Aaron", "Ava"};
+    String[] lastNames = {"Lulham", "Siaskowski", "Blinkhorn", "Tamburo", "Ramsey", "Alderton", "Pattle", "Chrispin", "Johnson", "Smith", "Williams"};
+    String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
+    String[] departments = {
+        "IT Development", "Sales", "HR", "Finance",
+        "Marketing", "Accounting", "Operations",
+        "Technical Support", "Customer Service", "IT"
+    };
+    String[] positions = {"Senior", "Middle", "Intern", "Junior", "Contract", "Analista"};
+    String[] jobTitles = {"Java Developer", "HR Specialist", "Finance Analyst", "Marketing Coordinator", "Support Clerk"};
+    String[] companies = {"VTR-TECH", "TechCorp", "InfoSphere", "CodeSolutions", "DevsUnited"};
 
-        Random random = new Random();
+    Random random = new Random();
 
-        String firstName = firstNames[random.nextInt(firstNames.length)];
-        String lastName = lastNames[random.nextInt(lastNames.length)];
-        String gender = genders[random.nextInt(genders.length)];
-        String email = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@company.com";
-        double salary = 30000 + (random.nextDouble() * 50000); // Between 30k and 80k
-        String department = departments[random.nextInt(departments.length)];
-        String position = positions[random.nextInt(positions.length)];
-        String jobTitle = jobTitles[random.nextInt(jobTitles.length)];
-        String company = companies[random.nextInt(companies.length)];
+    String firstName = firstNames[random.nextInt(firstNames.length)];
+    String lastName = lastNames[random.nextInt(lastNames.length)];
+    String gender = random.nextBoolean() ? "Male" : "Female";
+    String email = (firstName.charAt(0) + lastName + random.nextInt(100) + "@" + domains[random.nextInt(domains.length)]).toLowerCase();
+    double salary = 2500 + random.nextDouble() * 100000; // salário entre 2.5k e 100k
+    String department = departments[random.nextInt(departments.length)];
+    String position = positions[random.nextInt(positions.length)];
+    String jobTitle = jobTitles[random.nextInt(jobTitles.length)];
+    String company = companies[random.nextInt(companies.length)];
 
-        Employee randomEmployee = new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
-        employees.add(randomEmployee);
-    }
-public void searchAndPrint(String fullName) {
-    Employee found = searchEmployee(fullName);
-    if (found != null) {
-        System.out.println("Found: " + found);
-    } else {
-        System.out.println("Employee not found.");
-    }
+    Employee randomEmployee = new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
+    employees.add(randomEmployee);
+    return randomEmployee;
 }
+
     public List<Employee> getEmployees() {
         return employees;
     }
+    public Employee searchEmployeeByFullName(String fullName) {
+    sortEmployees();
+    return binarySearchEmployee(fullName, 0, employees.size() - 1);
+}
 }
 
 
