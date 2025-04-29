@@ -13,11 +13,8 @@ import java.util.Scanner;
 public class EmployeeFactory {
 
     public static Employee createFromUserInput(Scanner scanner) {
-    System.out.print("First Name: ");
-    String firstName = scanner.nextLine();
-
-    System.out.print("Last Name: ");
-    String lastName = scanner.nextLine();
+    String firstName = readNonEmptyInput(scanner, "First Name: ");
+    String lastName = readNonEmptyInput(scanner, "Last Name: ");
 
     // Gender
     String[] genders = {"Male", "Female"};
@@ -28,9 +25,7 @@ public class EmployeeFactory {
     int genderChoice = readOption(scanner, genders.length);
     String gender = genders[genderChoice - 1];
 
-    // Email
-    System.out.print("Email: ");
-    String email = scanner.nextLine();
+    String email = readNonEmptyInput(scanner, "Email: ");
 
     // Salary
     System.out.print("Salary: ");
@@ -63,16 +58,12 @@ public class EmployeeFactory {
     int posChoice = readOption(scanner, positions.length);
     String position = positions[posChoice - 1];
 
-    // Job Title
-    System.out.print("Job Title: ");
-    String jobTitle = scanner.nextLine();
-
-    // Company
-    System.out.print("Company: ");
-    String company = scanner.nextLine();
+    String jobTitle = readNonEmptyInput(scanner, "Job Title: ");
+    String company = readNonEmptyInput(scanner, "Company: ");
 
     return new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
 }
+
     
 public static Employee createFromCSV(String csvLine) {
     String[] parts = csvLine.split(",");
@@ -112,5 +103,16 @@ public static Employee createFromCSV(String csvLine) {
     }
     return choice;
 } 
-    
+    private static String readNonEmptyInput(Scanner scanner, String prompt) {
+    String input = "";
+    while (input.isBlank()) {
+        System.out.print(prompt);
+        input = scanner.nextLine().trim();
+        if (input.isBlank()) {
+            System.out.println(" This field cannot be empty. Please enter a valid value.");
+        }
+    }
+    return input;
+}
+
 }

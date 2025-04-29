@@ -70,12 +70,14 @@ public class Menu {
         try {
             choice = Integer.parseInt(scanner.nextLine().trim());
             if (choice < 1 || choice > MenuOption.values().length) {
-                System.out.println("Invalid option. Please try again.");
+                System.out.println("\n Atention Invalid option. Please enter a number between 1 and 5.");
+                System.out.println("                         !!!Please tyr Again!!!");
                 return null;
             }
             return MenuOption.values()[choice - 1];
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a number.");
+                System.out.println("\n Atention Invalid option. Please enter a number between 1 and 5.");
+                System.out.println("                         !!!Please try Again!!!");
             return null;
         }
     }
@@ -92,7 +94,7 @@ public class Menu {
                 System.out.println((i + 1) + ". " + e.getFirstName() + " " + e.getLastName());
                 System.out.println("   Position (Manager Type): " + e.getPosition());
                 System.out.println("   Department: " + e.getDepartment());
-                System.out.println("***--------------------------------------***");
+                System.out.println("--------------------------------------");
             }
             break;
             
@@ -103,7 +105,7 @@ public class Menu {
                 Employee found = manager.searchEmployeeByFullName(searchName);
 
                 if (found != null) {
-                    System.out.println("\n🔍 Employee Found!");
+                    System.out.println("\n***Employee Found!***");
                     System.out.println("======================================");
                     System.out.println("Name: " + found.getFirstName() + " " + found.getLastName());
                     System.out.println("Position (Manager Type): " + found.getPosition());
@@ -113,17 +115,17 @@ public class Menu {
                     System.out.println("Salary: " + found.getSalary());
                     System.out.println("======================================");
                 } else {
-                    System.out.println("⚠️ Employee not found.");
+                    System.out.println("!!! Employee not found!!!.");
                 }
                 break;
 
                 
             case ADD:
-                 Employee newEmployee = EmployeeFactory.createFromUserInput(scanner);
-                 manager.addEmployee(newEmployee);
+                Employee newEmployee = EmployeeFactory.createFromUserInput(scanner);
+                manager.addEmployee(newEmployee);
                 fileHandler.appendToFile("Applicants_Form.txt", newEmployee);
 
-                System.out.println("\n *** Employee added successfully!***");
+                System.out.println("\n ***Employee added successfully!***");
                 System.out.println("======================================");
                 System.out.println("Name: " + newEmployee.getFirstName() + " " + newEmployee.getLastName());
                 System.out.println("Gender: " + newEmployee.getGender());
@@ -133,14 +135,26 @@ public class Menu {
                 System.out.println("Position: " + newEmployee.getPosition());
                 System.out.println("Job Title: " + newEmployee.getJobTitle());
                 System.out.println("Company: " + newEmployee.getCompany());
-                System.out.println("***======================================***");
+                System.out.println("======================================");
                 break;
-                
                 
             case GENERATE_RANDOM:
-                manager.generateRandomEmployee();
-                System.out.println("Random employee generated successfully!");
-                break;
+                Employee randomEmployee = manager.generateRandomEmployee();
+                fileHandler.appendToFile("Applicants_Form.txt", randomEmployee);
+
+                System.out.println("\n*** Random Employee Generated***");
+                System.out.println("======================================");
+                System.out.println("Name: " + randomEmployee.getFirstName() + " " + randomEmployee.getLastName());
+                System.out.println("Gender: " + randomEmployee.getGender());
+                System.out.println("Email: " + randomEmployee.getEmail());
+                System.out.println("Salary: " + randomEmployee.getSalary());
+                System.out.println("Department: " + randomEmployee.getDepartment());
+                System.out.println("Position: " + randomEmployee.getPosition());
+                System.out.println("Job Title: " + randomEmployee.getJobTitle());
+                System.out.println("Company: " + randomEmployee.getCompany());
+                System.out.println("======================================");
+                break;                
+           
             default:
                 System.out.println("Option not implemented.");
         }

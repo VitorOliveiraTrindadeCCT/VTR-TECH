@@ -45,4 +45,7 @@ Sebastian,Morgan,Male,smorgan@Infinisoft.com,2900.4,HR,contract,HR Analyst,Infin
 Elena,Scott,Female,escott@DevsUnited.com,4600.3,IT Development,senior,Full-stack Developer,DevsUnited
 Finn,Walker,Male,fwalker@ByteWare.com,2200.45,Customer Service,intern,Support Clerk,ByteWare
 Amelia,King,Female,aking@TechWorks.com,5200.6,Marketing,middle,Marketing Specialist,TechWorks
-Vitor,Trindade,Male,Vitor.trindade.cadmus@gmail.com,12200.0,IT Development,Middle,Scrum Master,fuji
+Vitor,Trindade,Male,Vitor.trindade.cadmus@gmail.com,12200.0,IT Development,Middle,Scrum Master,Fujitsu
+Alice,Chrispin,Female,achrispin74@aol.com,82466.83084652427,IT,Analista,Java Developer,CodeSolutions
+Addison,Lulham,Female,alulham70@icloud.com,94513.8806478434,HR,Senior,Java Developer,CodeSolutions
+Alice,Blinkhorn,Male,ablinkhorn45@gmail.com,16054.381052151832,IT,Junior,Finance Analyst,VTR-TECH
