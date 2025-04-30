@@ -49,3 +49,4 @@ Vitor,Trindade,Male,Vitor.trindade.cadmus@gmail.com,12200.0,IT Development,Middl
 Alice,Chrispin,Female,achrispin74@aol.com,82466.83084652427,IT,Analista,Java Developer,CodeSolutions
 Addison,Lulham,Female,alulham70@icloud.com,94513.8806478434,HR,Senior,Java Developer,CodeSolutions
 Alice,Blinkhorn,Male,ablinkhorn45@gmail.com,16054.381052151832,IT,Junior,Finance Analyst,VTR-TECH
+Abby,Smith,Female,asmith97@aol.com,41876.12427348207,Finance,Intern,Finance Analyst,InfoSphere

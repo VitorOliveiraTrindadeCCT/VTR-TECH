@@ -101,15 +101,10 @@ private List<String> merge(List<String> left, List<String> right) {
 
     
     public Employee generateRandomEmployee() {
-    String[] firstNames = {"Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adriane", "Alex", "Alice", "Aaron", "Ava"};
-    String[] lastNames = {"Lulham", "Siaskowski", "Blinkhorn", "Tamburo", "Ramsey", "Alderton", "Pattle", "Chrispin", "Johnson", "Smith", "Williams"};
-    String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
-    String[] departments = {
-        "IT Development", "Sales", "HR", "Finance",
-        "Marketing", "Accounting", "Operations",
-        "Technical Support", "Customer Service", "IT"
-    };
-    String[] positions = {"Senior", "Middle", "Intern", "Junior", "Contract", "Analista"};
+        
+    String[] firstNames = {"Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adriane", "Alex", "Alice", "Aaron", "Ava","Vitor","Hugo","Tainara","Carlos"};
+    String[] lastNames = {"Lulham", "Siaskowski", "Blinkhorn", "Tamburo", "Ramsey", "Alderton", "Pattle", "Chrispin", "Johnson", "Smith", "Williams"};String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com","icloud.com", "aol.com", "live.com"};String[] departments = {"IT Development", "Sales", "HR", "Finance","Marketing", "Accounting", "Operations","Technical Support", "Customer Service", "IT"};
+    String[] positions = {"Senior", "Middle", "Intern", "Junior", "Contract", "Analyst"};
     String[] jobTitles = {"Java Developer", "HR Specialist", "Finance Analyst", "Marketing Coordinator", "Support Clerk"};
     String[] companies = {"VTR-TECH", "TechCorp", "InfoSphere", "CodeSolutions", "DevsUnited"};
 
