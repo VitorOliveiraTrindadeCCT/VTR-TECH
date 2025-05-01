@@ -7,7 +7,7 @@
  * Author: Vitor Oliveira Trindade
  * Date: 28/04/2025
  */
-package vtrtech; // Defines the package name for this class
+package CA_2; // Defines the package name for this class
 
 import java.util.List;
 import java.util.Scanner;
@@ -41,12 +41,13 @@ This is the entry point of the program. It initializes all core components (scan
         // Reads data from a text file and loads employees
         List<String> lines = fileHandler.readFile("Applicants_Form.txt");
         if (!lines.isEmpty()) {
-            lines.remove(0); // Removes header line if present
+            lines.remove(0); // Removes header line it is necesary 
+
         }
 
         // Converts each CSV line into an Employee object and adds it to the manager
-        for (String line : lines) {
-            Employee employee = EmployeeFactory.createFromCSV(line);
+      for (String line : lines) {
+           Employee employee = EmployeeFactory.createFromCSV(line);
             if (employee != null) {
                 manager.addEmployee(employee);
             }
@@ -149,9 +150,13 @@ This function is responsible for executing the logic associated with each menu o
 */
     private static void handleMenuOption(MenuOption option, Scanner scanner, EmployeeManager manager, FileHandler fileHandler) {
         switch (option) {
-            case SORT:
-                // Get top 20 sorted employees and display them
-                List<Employee> top20 = manager.getTop20SortedEmployees();
+                        case SORT:
+                // Sort the employees using Insertion Sort
+                manager.insertionSortEmployees();
+
+                // Get the top 20 employees after sorting
+                List<Employee> top20 = manager.getEmployees().subList(0, Math.min(20, manager.getEmployees().size()));
+
                 System.out.println("\n ***Top 20 Sorted Employees***");
                 System.out.println("======================================");
 

@@ -6,9 +6,11 @@
  * Author: Vitor Oliveira Trindade
  * Date: 28/04/2025
  */
-package vtrtech;
+package CA_2;
 
 public class Employee {
+
+    // Employee personal and professional attributes
     private String firstName;
     private String lastName;
     private String gender;
@@ -19,7 +21,20 @@ public class Employee {
     private String jobTitle;
     private String company;
 
-    // Constructor
+    /*
+    Description: Constructor
+    Initializes all fields of the Employee object.
+
+        Parameters:
+            - firstName, lastName: name of the employee
+            - gender: "Male" or "Female"
+            - email: contact email
+            - salary: numeric salary value
+            - department: department within the company
+            - position: level or type of role (e.g., Intern, Senior)
+            - jobTitle: the actual job title (e.g., "Java Developer")
+            - company: company name the employee works for
+    */
     public Employee(String firstName, String lastName, String gender, String email,
                     double salary, String department, String position, String jobTitle, String company) {
         this.firstName = firstName;
@@ -33,7 +48,12 @@ public class Employee {
         this.company = company;
     }
 
-    // Getters (no need for setters for now, only reading data)
+    /*
+    Description: Getter methods
+    These methods provide read-only access to the private fields.
+    Used to retrieve individual pieces of employee data.
+    */
+
     public String getFirstName() {
         return firstName;
     }
@@ -70,6 +90,13 @@ public class Employee {
         return company;
     }
 
+    /*
+    Description: toString override
+    Provides a human-readable string representation of the Employee object.
+    Useful for debugging or printing lists of employees.
+
+        Format: "FirstName LastName - JobTitle (Department) - Company"
+    */
     @Override
     public String toString() {
         return firstName + " " + lastName + " - " + jobTitle + " (" + department + ") - " + company;
