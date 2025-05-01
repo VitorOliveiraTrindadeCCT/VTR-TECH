@@ -53,3 +53,5 @@ Abby,Smith,Female,asmith97@aol.com,41876.12427348207,Finance,Intern,Finance Anal
 Adolf,Pattle,Male,apattle88@aol.com,10870.54679469721,HR,Senior,Support Clerk,VTR-TECH
 Alex,Alderton,Female,aalderton17@icloud.com,34254.54423302024,Operations,Analyst,Marketing Coordinator,TechCorp
 Ada,Siaskowski,Female,asiaskowski36@icloud.com,40533.62272820007,HR,Analyst,HR Specialist,VTR-TECH
+Abdul,Blinkhorn,Female,ablinkhorn4@live.com,7423.25984655202,TECHNICAL_SUPPORT,CONTRACT,Finance Analyst,CodeSolutions
+Vitor trindade3,tridnade,Male,email,0.0,IT_DEVELOPMENT,ASSISTANT_MANAGER,saasda,das

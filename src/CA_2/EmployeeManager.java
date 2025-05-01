@@ -4,7 +4,7 @@
  * Description: Manages a list of employees, allowing adding, searching, sorting, and generating random employees.
  * 
  * Author: Vitor Oliveira Trindade
- * Date: 28/04/2025
+ * Date: 28/04/2025 (Atualizado para uso com enums)
  */
 package CA_2;
 
@@ -40,7 +40,7 @@ public class EmployeeManager {
     }
 
     /*
-    Description: searchEmployee / searchEmployeeByFullName
+    Description:  searchEmployeeByFullName
     Searches for an employee by full name using binary search.
 
         Logic:
@@ -50,10 +50,7 @@ public class EmployeeManager {
         Purpose:
             - Provides a fast search for a specific employee by their full name.
     */
-    public Employee searchEmployee(String fullName) {
-        sortEmployees(); // Ensure the list is sorted before binary search
-        return binarySearchEmployee(fullName, 0, employees.size() - 1);
-    }
+
 
     public Employee searchEmployeeByFullName(String fullName) {
         sortEmployees(); // Ensures binary search will work correctly
@@ -98,9 +95,9 @@ public class EmployeeManager {
         Purpose:
             - Ensures predictable order for displaying, searching, and reporting.
     */
-   public void sortEmployees() {
-      Collections.sort(employees, Comparator.comparing(Employee::getFirstName).thenComparing(Employee::getLastName));
-   }
+    public void sortEmployees() {
+        Collections.sort(employees, Comparator.comparing(Employee::getFirstName).thenComparing(Employee::getLastName));
+    }
 
     /*
     Description: listAllEmployees
@@ -111,8 +108,6 @@ public class EmployeeManager {
             System.out.println(employee);
         }
     }
-
-
 
     /*
     Description: insertionSortEmployees
@@ -131,50 +126,45 @@ public class EmployeeManager {
             - Replaces the use of built-in or advanced sorts like MergeSort.
             - Ensures the list is correctly ordered for binary search and display operations.
     */
-public void insertionSortEmployees() {
-    for (int i = 1; i < employees.size(); i++) {
-        Employee key = employees.get(i);
-        int j = i - 1;
+    public void insertionSortEmployees() {
+        for (int i = 1; i < employees.size(); i++) {
+            Employee key = employees.get(i);
+            int j = i - 1;
 
-        // primeiro vou Comparar nomes completos ignorando maiúsculas/minúsculas
-        String keyFullName = key.getFirstName() + " " + key.getLastName();
+            String keyFullName = key.getFirstName() + " " + key.getLastName();
 
-        // segundo Mover os elementos maiores que key para frente
-        while (j >= 0) {
-            Employee current = employees.get(j);
-            String currentFullName = current.getFirstName() + " " + current.getLastName();
+            while (j >= 0) {
+                Employee current = employees.get(j);
+                String currentFullName = current.getFirstName() + " " + current.getLastName();
 
-            if (currentFullName.compareToIgnoreCase(keyFullName) > 0) {
-                employees.set(j + 1, current); // move para frente
-                j--;
-            } else {
-                break;
+                if (currentFullName.compareToIgnoreCase(keyFullName) > 0) {
+                    employees.set(j + 1, current);
+                    j--;
+                } else {
+                    break;
+                }
             }
+
+            employees.set(j + 1, key);
         }
-
-        // Inserir o elemento na posição correta !!!!! obs pessoal sem essa linha fica tudo baguncado com duplicadas!!!!!
-        employees.set(j + 1, key);
     }
-}
-
 
     /*
     Description: generateRandomEmployee
     Creates a new Employee object with randomized fields, adds it to the list, and returns it.
 
         Logic:
-            - Selects random values from predefined arrays for names, departments, positions, etc.
+            - Selects random values from predefined arrays for names, email domains, job titles, companies.
+            - Randomly selects values from enums DepartmentType and PositionType.
             - Constructs a new Employee and adds it to the internal list.
 
         Purpose:
             - Useful for testing or creating sample data automatically.
     */
     public Employee generateRandomEmployee() {
-        String[] firstNames = {"Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adriane", "Alex", "Alice", "Aaron", "Ava","Vitor","Hugo","Tainara","Carlos"};
+        String[] firstNames = {"Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adriane", "Alex", "Alice", "Aaron", "Ava", "Vitor", "Hugo", "Tainara", "Carlos"};
         String[] lastNames = {"Lulham", "Siaskowski", "Blinkhorn", "Tamburo", "Ramsey", "Alderton", "Pattle", "Chrispin", "Johnson", "Smith", "Williams"};
-        String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com","icloud.com", "aol.com", "live.com"};
-        String[] departments = {"IT Development", "Sales", "HR", "Finance","Marketing", "Accounting", "Operations","Technical Support", "Customer Service", "IT"};
-        String[] positions = {"Senior", "Middle", "Intern", "Junior", "Contract", "Analyst"};
+        String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
         String[] jobTitles = {"Java Developer", "HR Specialist", "Finance Analyst", "Marketing Coordinator", "Support Clerk"};
         String[] companies = {"VTR-TECH", "TechCorp", "InfoSphere", "CodeSolutions", "DevsUnited"};
 
@@ -185,8 +175,9 @@ public void insertionSortEmployees() {
         String gender = random.nextBoolean() ? "Male" : "Female";
         String email = (firstName.charAt(0) + lastName + random.nextInt(100) + "@" + domains[random.nextInt(domains.length)]).toLowerCase();
         double salary = 2500 + random.nextDouble() * 100000;
-        String department = departments[random.nextInt(departments.length)];
-        String position = positions[random.nextInt(positions.length)];
+
+        DepartmentType department = DepartmentType.values()[random.nextInt(DepartmentType.values().length)];
+        PositionType position = PositionType.values()[random.nextInt(PositionType.values().length)];
         String jobTitle = jobTitles[random.nextInt(jobTitles.length)];
         String company = companies[random.nextInt(companies.length)];
 

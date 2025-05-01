@@ -1,11 +1,10 @@
-
 /**
  * EmployeeFactory
  * 
- * Description: Responsible for creating Employee instances from various sources (e.g., user input).
+ * Description: Responsible for creating Employee instances from various sources (e.g., user input or CSV).
  * 
  * Author: Vitor Oliveira Trindade
- * Date: 29/04/2025
+ * Date: 29/04/2025 (Atualizado com suporte a enums)
  */
 package CA_2;
 
@@ -18,30 +17,28 @@ public class EmployeeFactory {
     Creates an Employee object by interacting with the user through the console.
 
         Logic:
-            > Prompts the user for various pieces of information: name, gender, email, salary, department, etc.
+            > Prompts the user for various pieces of information: name, gender, email, salary, etc.
+            > Uses enums for DepartmentType and PositionType to ensure valid selections.
             > Uses helper methods to validate and read input.
             > Returns a fully populated Employee instance.
 
         Purpose:
             > Provides a structured and guided way to create an Employee via terminal interaction.
+            > Reduces invalid data by relying on enum values.
     */
     public static Employee createFromUserInput(Scanner scanner) {
         // Prompt and read first name
         String firstName = readNonEmptyInput(scanner, "First Name: ");
-        
+
         // Prompt and read last name
         String lastName = readNonEmptyInput(scanner, "Last Name: ");
 
-        // Define possible gender options
+        // Gender options
         String[] genders = {"Male", "Female"};
-
-        // Ask user to select gender
         System.out.println("Select Gender:");
         for (int i = 0; i < genders.length; i++) {
             System.out.println((i + 1) + ". " + genders[i]);
         }
-
-        // Read user selection for gender
         int genderChoice = readOption(scanner, genders.length);
         String gender = genders[genderChoice - 1];
 
@@ -57,35 +54,23 @@ public class EmployeeFactory {
             System.out.println("Invalid salary input. Setting salary to 0.0.");
         }
 
-        // Define department options
-        String[] departments = {
-            "IT Development", "Sales", "HR", "Finance",
-            "Marketing", "Accounting", "Operations",
-            "Technical Support", "Customer Service", "IT"
-        };
-
-        // Ask user to select department
+        // Department options (using Enum)
+        DepartmentType[] departments = DepartmentType.values();
         System.out.println("Select Department:");
         for (int i = 0; i < departments.length; i++) {
-            System.out.println((i + 1) + ". " + departments[i]);
+            System.out.println((i + 1) + ". " + departments[i].name().replace("_", " "));
         }
-
-        // Read user selection for department
         int deptChoice = readOption(scanner, departments.length);
-        String department = departments[deptChoice - 1];
+        DepartmentType department = departments[deptChoice - 1];
 
-        // Define position options
-        String[] positions = {"Senior", "Middle", "Intern", "Junior", "Contract", "Analista"};
-
-        // Ask user to select position
+        // Position options (using Enum)
+        PositionType[] positions = PositionType.values();
         System.out.println("Select Position:");
         for (int i = 0; i < positions.length; i++) {
-            System.out.println((i + 1) + ". " + positions[i]);
+            System.out.println((i + 1) + ". " + positions[i].name().replace("_", " "));
         }
-
-        // Read user selection for position
         int posChoice = readOption(scanner, positions.length);
-        String position = positions[posChoice - 1];
+        PositionType position = positions[posChoice - 1];
 
         // Prompt and read job title
         String jobTitle = readNonEmptyInput(scanner, "Job Title: ");
@@ -93,7 +78,7 @@ public class EmployeeFactory {
         // Prompt and read company name
         String company = readNonEmptyInput(scanner, "Company: ");
 
-        // Create and return the new Employee object
+        // Return new Employee using enums
         return new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
     }
 
@@ -103,21 +88,20 @@ public class EmployeeFactory {
 
         Logic:
             > Splits the line by commas.
-            > Trims and parses the fields into proper types.
-            > Returns an Employee object or null if invalid.
+            > Parses and trims each value.
+            > Converts department and position using enums.
+            > Handles invalid enum values with fallback defaults.
 
         Purpose:
-            > Used to convert file-based data into usable Employee instances.
+            > Used to import Employee data from a CSV file reliably.
+            > Ensures enums are parsed correctly and prevents crashes on unexpected input.
     */
     public static Employee createFromCSV(String csvLine) {
         String[] parts = csvLine.split(",");
 
         // Validate if line has all required fields
-        if (parts.length < 9) {
-            return null; // Invalid line, return null
-        }
+        if (parts.length < 9) return null;
 
-        // Assign and trim each value from CSV
         String firstName = parts[0].trim();
         String lastName = parts[1].trim();
         String gender = parts[2].trim();
@@ -130,12 +114,24 @@ public class EmployeeFactory {
             System.out.println("Invalid salary value for: " + firstName + " " + lastName);
         }
 
-        String department = parts[5].trim();
-        String position = parts[6].trim();
+        // Parse enums with fallback for invalid input
+        DepartmentType department;
+        try {
+            department = DepartmentType.valueOf(parts[5].trim().toUpperCase().replace(" ", "_"));
+        } catch (IllegalArgumentException e) {
+            department = DepartmentType.IT; // fallback default
+        }
+
+        PositionType position;
+        try {
+            position = PositionType.valueOf(parts[6].trim().toUpperCase().replace(" ", "_"));
+        } catch (IllegalArgumentException e) {
+            position = PositionType.JUNIOR; // fallback default
+        }
+
         String jobTitle = parts[7].trim();
         String company = parts[8].trim();
 
-        // Create and return the Employee object
         return new Employee(firstName, lastName, gender, email, salary, department, position, jobTitle, company);
     }
 
@@ -147,12 +143,14 @@ public class EmployeeFactory {
             - scanner: the Scanner object for input
             - max: maximum valid number (inclusive)
 
+        Returns:
+            - A valid integer option selected by the user.
+
         Purpose:
             > Ensures users select only valid numbered options in menus.
     */
     private static int readOption(Scanner scanner, int max) {
         int choice = -1;
-
         while (choice < 1 || choice > max) {
             System.out.print("Enter a number between 1 and " + max + ": ");
             try {
@@ -161,7 +159,6 @@ public class EmployeeFactory {
                 System.out.println("Invalid input. Please enter a valid number.");
             }
         }
-
         return choice;
     }
 
@@ -181,17 +178,13 @@ public class EmployeeFactory {
     */
     private static String readNonEmptyInput(Scanner scanner, String prompt) {
         String input = "";
-
         while (input.isBlank()) {
             System.out.print(prompt);
             input = scanner.nextLine().trim();
-
             if (input.isBlank()) {
                 System.out.println(" This field cannot be empty. Please enter a valid value.");
             }
         }
-
         return input;
     }
-
 }

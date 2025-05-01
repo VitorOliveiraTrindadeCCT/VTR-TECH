@@ -8,6 +8,9 @@
  */
 package CA_2;
 
+import CA_2.DepartmentType;
+import CA_2.PositionType;
+
 public class Employee {
 
     // Employee personal and professional attributes
@@ -16,8 +19,8 @@ public class Employee {
     private String gender;
     private String email;
     private double salary;
-    private String department;
-    private String position;
+    private DepartmentType department;
+    private PositionType position;
     private String jobTitle;
     private String company;
 
@@ -30,13 +33,13 @@ public class Employee {
             - gender: "Male" or "Female"
             - email: contact email
             - salary: numeric salary value
-            - department: department within the company
-            - position: level or type of role (e.g., Intern, Senior)
+            - department: enum DepartmentType within the company
+            - position: enum PositionType indicating the role (e.g., HEAD_MANAGER, INTERN)
             - jobTitle: the actual job title (e.g., "Java Developer")
             - company: company name the employee works for
     */
     public Employee(String firstName, String lastName, String gender, String email,
-                    double salary, String department, String position, String jobTitle, String company) {
+                    double salary, DepartmentType department, PositionType position, String jobTitle, String company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -74,11 +77,11 @@ public class Employee {
         return salary;
     }
 
-    public String getDepartment() {
+    public DepartmentType getDepartment() {
         return department;
     }
 
-    public String getPosition() {
+    public PositionType getPosition() {
         return position;
     }
 
@@ -99,6 +102,6 @@ public class Employee {
     */
     @Override
     public String toString() {
-        return firstName + " " + lastName + " - " + jobTitle + " (" + department + ") - " + company;
+        return firstName + " " + lastName + " - " + jobTitle + " (" + department.name().replace("_", " ") + ") - " + company;
     }
 }

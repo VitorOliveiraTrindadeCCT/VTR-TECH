@@ -81,24 +81,22 @@ public class FileHandler {
             > To add a new employee to the file without overwriting existing data.
             > Keeps a persistent record of employee entries in CSV format.
     */
-    public void appendToFile(String filename, Employee employee) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
-            String line = String.join(",",
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getGender(),
-                employee.getEmail(),
-                String.valueOf(employee.getSalary()),
-                employee.getDepartment(),
-                employee.getPosition(),
-                employee.getJobTitle(),
-                employee.getCompany()
-            );
-            writer.write(line);
-            writer.newLine();
-        } catch (IOException e) {
-            System.out.println("Error appending to file: " + e.getMessage());
-        }
+public void appendToFile(String filename, Employee employee) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
+        String line = String.join(",",
+            employee.getFirstName(),
+            employee.getLastName(),
+            employee.getGender(),
+            employee.getEmail(),
+            String.valueOf(employee.getSalary()),
+            employee.getDepartment().name(),
+            employee.getPosition().name(),
+            employee.getJobTitle(),
+            employee.getCompany()
+        );
+        writer.write(line);
+        writer.newLine();
+    } catch (IOException e) {
+        System.out.println("Error appending to file: " + e.getMessage());
     }
-
-}
+}}
