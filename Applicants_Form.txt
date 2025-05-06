@@ -47,3 +47,4 @@ Finn,Walker,Male,fwalker@ByteWare.com,2200.45,Customer Service,intern,Support Cl
 Amelia,King,Female,aking@TechWorks.com,5200.6,Marketing,middle,Marketing Specialist,TechWorks
 Vitor,Trindade,Male,Vitor.trindade.cadmus@gmail.com,12200.0,IT Development,Middle,Scrum Master,Fujitsu
 
+Alex,Tamburo,Male,atamburo88@aol.com,49977.08958532661,CUSTOMER_SERVICE,INTERN,HR Specialist,TechCorp

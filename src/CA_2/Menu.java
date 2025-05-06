@@ -16,7 +16,7 @@ public class Menu {
 
     // Enum that defines all available menu options
     public enum MenuOption {
-        SORT,
+        SORT_TOP_20,
         List_All_Employees,
         SEARCH,
         ADD,
@@ -130,7 +130,7 @@ public class Menu {
     */
     private static void handleMenuOption(MenuOption option, Scanner scanner, EmployeeManager manager, FileHandler fileHandler) {
         switch (option) {
-               case SORT:
+               case SORT_TOP_20:
             manager.insertionSortEmployees(); // Sort employees using insertion sort
             List<Employee> top20 = manager.getEmployees().subList(0, Math.min(20, manager.getEmployees().size())); // Get top 20 or fewer
 
