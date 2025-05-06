@@ -130,106 +130,114 @@ public class Menu {
     */
     private static void handleMenuOption(MenuOption option, Scanner scanner, EmployeeManager manager, FileHandler fileHandler) {
         switch (option) {
-            case SORT:
-                manager.insertionSortEmployees();
-                List<Employee> top20 = manager.getEmployees().subList(0, Math.min(20, manager.getEmployees().size()));
+        case SORT:
+            manager.insertionSortEmployees(); // Sorts employees using insertion sort
+            List<Employee> top20 = manager.getEmployees().subList(0, Math.min(20, manager.getEmployees().size())); // Gets top 20 (or fewer if less than 20 employees)
 
-                System.out.println("\n ***Top 20 Sorted Employees***");
+            System.out.println("\n ***Top 20 Sorted Employees***");
+            System.out.println("======================================");
+
+            // Prints each of the top 20 employees' basic info
+            for (int i = 0; i < top20.size(); i++) {
+                Employee e = top20.get(i);
+                System.out.println((i + 1) + ". " + e.getFirstName() + " " + e.getLastName());
+                System.out.println("   Position (Manager Type): " + e.getPosition().name().replace("_", " "));
+                System.out.println("   Department: " + e.getDepartment().name().replace("_", " "));
+                System.out.println("--------------------------------------");
+            }
+            break;
+
+        // Case for searching an employee by full name
+        case SEARCH:
+            System.out.print("Enter the full name to search (First and Last name): ");
+            String searchName = scanner.nextLine(); // Reads full name from user input
+            Employee found = manager.searchEmployeeByFullName(searchName); // Searches employee by full name
+
+            if (found != null) {
+                // If found, display full employee details
+                System.out.println("\n***Employee Found!***");
                 System.out.println("======================================");
-
-                for (int i = 0; i < top20.size(); i++) {
-                    Employee e = top20.get(i);
-                    System.out.println((i + 1) + ". " + e.getFirstName() + " " + e.getLastName());
-                    System.out.println("   Position (Manager Type): " + e.getPosition().name().replace("_", " "));
-                    System.out.println("   Department: " + e.getDepartment().name().replace("_", " "));
-                    System.out.println("--------------------------------------");
-                }
-                break;
-
-            case SEARCH:
-                System.out.print("Enter the full name to search (First and Last name): ");
-                String searchName = scanner.nextLine();
-                Employee found = manager.searchEmployeeByFullName(searchName);
-
-                if (found != null) {
-                    System.out.println("\n***Employee Found!***");
-                    System.out.println("======================================");
-                    System.out.println("Name: " + found.getFirstName() + " " + found.getLastName());
-                    System.out.println("Position (Manager Type): " + found.getPosition().name().replace("_", " "));
-                    System.out.println("Department: " + found.getDepartment().name().replace("_", " "));
-                    System.out.println("Email: " + found.getEmail());
-                    System.out.println("Company: " + found.getCompany());
-                    System.out.println("Salary: " + found.getSalary());
-                    System.out.println("======================================");
-                } else {
-                    System.out.println("!!! Employee not found !!!");
-                }
-                break;
-
-            case ADD:
-                Employee newEmployee = EmployeeFactory.createFromUserInput(scanner);
-                manager.addEmployee(newEmployee);
-                fileHandler.appendToFile("Applicants_Form.txt", newEmployee);
-
-                System.out.println("\n ***Employee added successfully!***");
+                System.out.println("Name: " + found.getFirstName() + " " + found.getLastName());
+                System.out.println("Position (Manager Type): " + found.getPosition().name().replace("_", " "));
+                System.out.println("Department: " + found.getDepartment().name().replace("_", " "));
+                System.out.println("Email: " + found.getEmail());
+                System.out.println("Company: " + found.getCompany());
+                System.out.println("Salary: " + found.getSalary());
                 System.out.println("======================================");
-                System.out.println("Name: " + newEmployee.getFirstName() + " " + newEmployee.getLastName());
-                System.out.println("Gender: " + newEmployee.getGender());
-                System.out.println("Email: " + newEmployee.getEmail());
-                System.out.println("Salary: " + newEmployee.getSalary());
-                System.out.println("Department: " + newEmployee.getDepartment().name().replace("_", " "));
-                System.out.println("Position: " + newEmployee.getPosition().name().replace("_", " "));
-                System.out.println("Job Title: " + newEmployee.getJobTitle());
-                System.out.println("Company: " + newEmployee.getCompany());
-                System.out.println("======================================");
-                break;
+            } else {
+                System.out.println("!!! Employee not found !!!"); // Message if employee is not found
+            }
+            break;
 
-            case GENERATE_RANDOM:
-                Employee randomEmployee = manager.generateRandomEmployee();
-                fileHandler.appendToFile("Applicants_Form.txt", randomEmployee);
+        // Case for adding a new employee manually
+        case ADD:
+            Employee newEmployee = EmployeeFactory.createFromUserInput(scanner); // Creates new employee from user input
+            manager.addEmployee(newEmployee); // Adds employee to list
+            fileHandler.appendToFile("Applicants_Form.txt", newEmployee); // Appends employee to file
 
-                System.out.println("\n*** Random Employee Generated ***");
-                System.out.println("======================================");
-                System.out.println("Name: " + randomEmployee.getFirstName() + " " + randomEmployee.getLastName());
-                System.out.println("Gender: " + randomEmployee.getGender());
-                System.out.println("Email: " + randomEmployee.getEmail());
-                System.out.println("Salary: " + randomEmployee.getSalary());
-                System.out.println("Department: " + randomEmployee.getDepartment().name().replace("_", " "));
-                System.out.println("Position: " + randomEmployee.getPosition().name().replace("_", " "));
-                System.out.println("Job Title: " + randomEmployee.getJobTitle());
-                System.out.println("Company: " + randomEmployee.getCompany());
-                System.out.println("======================================");
-                break;
-                
-             case List_All_Employees:
-                manager.insertionSortEmployees();
-                List<Employee> allEmployees = manager.getEmployees();
+            // Displays confirmation and employee details
+            System.out.println("\n ***Employee added successfully!***");
+            System.out.println("======================================");
+            System.out.println("Name: " + newEmployee.getFirstName() + " " + newEmployee.getLastName());
+            System.out.println("Gender: " + newEmployee.getGender());
+            System.out.println("Email: " + newEmployee.getEmail());
+            System.out.println("Salary: " + newEmployee.getSalary());
+            System.out.println("Department: " + newEmployee.getDepartment().name().replace("_", " "));
+            System.out.println("Position: " + newEmployee.getPosition().name().replace("_", " "));
+            System.out.println("Job Title: " + newEmployee.getJobTitle());
+            System.out.println("Company: " + newEmployee.getCompany());
+            System.out.println("======================================");
+            break;
 
-                System.out.println("\n================================================================= ***All Employees***========================================================================");
-                System.out.println("==========================================================================================================================================================");
-                System.out.printf("%-4s %-30s %-35s %-22s %-27s %-17s %-10s\n", 
-                                  "No", "| Name", "| Email", "| Position", "| Department", "| Company", "| Salary");
-                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
+        // Case for generating a random employee
+        case GENERATE_RANDOM:
+            Employee randomEmployee = manager.generateRandomEmployee(); // Generates a random employee
+            fileHandler.appendToFile("Applicants_Form.txt", randomEmployee); // Appends to file
 
-                for (int i = 0; i < allEmployees.size(); i++) {
-                    Employee e = allEmployees.get(i);
-                    String fullName    = "|  " + e.getFirstName() + " " + e.getLastName();
-                    String email       = "|  " + e.getEmail();
-                    String position    = "|  " + e.getPosition().name().replace("_", " ");
-                    String department  = "|  " + e.getDepartment().name().replace("_", " ");
-                    String company     = "|  " + e.getCompany();
-                    String salaryStr   = String.format("|  %.2f", e.getSalary());
+            // Displays the randomly generated employee
+            System.out.println("\n*** Random Employee Generated ***");
+            System.out.println("======================================");
+            System.out.println("Name: " + randomEmployee.getFirstName() + " " + randomEmployee.getLastName());
+            System.out.println("Gender: " + randomEmployee.getGender());
+            System.out.println("Email: " + randomEmployee.getEmail());
+            System.out.println("Salary: " + randomEmployee.getSalary());
+            System.out.println("Department: " + randomEmployee.getDepartment().name().replace("_", " "));
+            System.out.println("Position: " + randomEmployee.getPosition().name().replace("_", " "));
+            System.out.println("Job Title: " + randomEmployee.getJobTitle());
+            System.out.println("Company: " + randomEmployee.getCompany());
+            System.out.println("======================================");
+            break;
 
-                    System.out.printf("%-4d %-30s %-35s %-22s %-27s %-17s %-10s\n", 
-                                      (i + 1), fullName, email, position, department, company, salaryStr);
-                }
+        // Case for listing all employees in a table format
+        case List_All_Employees:
+            manager.insertionSortEmployees(); // Sorts all employees before listing
+            List<Employee> allEmployees = manager.getEmployees(); // Gets all employees
 
-                System.out.println("===========================================================================================================================================================");
-                System.out.println("================================================================= ***All Employees***========================================================================");
-                break;
+            // Table headers
+            System.out.println("\n================================================================= ***All Employees***========================================================================");
+            System.out.println("==========================================================================================================================================================");
+            System.out.printf("%-4s %-30s %-35s %-22s %-27s %-17s %-10s\n", 
+                              "No", "| Name", "| Email", "| Position", "| Department", "| Company", "| Salary");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+            // Prints each employee as a row in the table
+            for (int i = 0; i < allEmployees.size(); i++) {
+                Employee e = allEmployees.get(i);
+                String fullName    = "|  " + e.getFirstName() + " " + e.getLastName();
+                String email       = "|  " + e.getEmail();
+                String position    = "|  " + e.getPosition().name().replace("_", " ");
+                String department  = "|  " + e.getDepartment().name().replace("_", " ");
+                String company     = "|  " + e.getCompany();
+                String salaryStr   = String.format("|  %.2f", e.getSalary());
 
-            
+                System.out.printf("%-4d %-30s %-35s %-22s %-27s %-17s %-10s\n", 
+                                  (i + 1), fullName, email, position, department, company, salaryStr);
+            }
+
+            // Footer
+            System.out.println("===========================================================================================================================================================");
+            System.out.println("================================================================= ***All Employees***========================================================================");
+            break;            
         }
     }
 }
