@@ -17,6 +17,7 @@ public class Menu {
     // Enum that defines all available menu options
     public enum MenuOption {
         SORT,
+        List_All_Employees,
         SEARCH,
         ADD,
         GENERATE_RANDOM,
@@ -199,9 +200,36 @@ public class Menu {
                 System.out.println("Company: " + randomEmployee.getCompany());
                 System.out.println("======================================");
                 break;
+                
+             case List_All_Employees:
+                manager.insertionSortEmployees();
+                List<Employee> allEmployees = manager.getEmployees();
 
-            default:
-                System.out.println("Option not implemented.");
+                System.out.println("\n================================================================= ***All Employees***========================================================================");
+                System.out.println("==========================================================================================================================================================");
+                System.out.printf("%-4s %-30s %-35s %-22s %-27s %-17s %-10s\n", 
+                                  "No", "| Name", "| Email", "| Position", "| Department", "| Company", "| Salary");
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+                for (int i = 0; i < allEmployees.size(); i++) {
+                    Employee e = allEmployees.get(i);
+                    String fullName    = "|  " + e.getFirstName() + " " + e.getLastName();
+                    String email       = "|  " + e.getEmail();
+                    String position    = "|  " + e.getPosition().name().replace("_", " ");
+                    String department  = "|  " + e.getDepartment().name().replace("_", " ");
+                    String company     = "|  " + e.getCompany();
+                    String salaryStr   = String.format("|  %.2f", e.getSalary());
+
+                    System.out.printf("%-4d %-30s %-35s %-22s %-27s %-17s %-10s\n", 
+                                      (i + 1), fullName, email, position, department, company, salaryStr);
+                }
+
+                System.out.println("===========================================================================================================================================================");
+                System.out.println("================================================================= ***All Employees***========================================================================");
+                break;
+
+
+            
         }
     }
 }

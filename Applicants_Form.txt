@@ -55,3 +55,4 @@ Alex,Alderton,Female,aalderton17@icloud.com,34254.54423302024,Operations,Analyst
 Ada,Siaskowski,Female,asiaskowski36@icloud.com,40533.62272820007,HR,Analyst,HR Specialist,VTR-TECH
 Abdul,Blinkhorn,Female,ablinkhorn4@live.com,7423.25984655202,TECHNICAL_SUPPORT,CONTRACT,Finance Analyst,CodeSolutions
 Vitor trindade3,tridnade,Male,email,0.0,IT_DEVELOPMENT,ASSISTANT_MANAGER,saasda,das
+Adelina,Johnson,Female,ajohnson24@hotmail.com,16925.860182162498,MARKETING,ASSISTANT_MANAGER,HR Specialist,CodeSolutions
