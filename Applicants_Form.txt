@@ -46,15 +46,4 @@ Elena,Scott,Female,escott@DevsUnited.com,4600.3,IT Development,senior,Full-stack
 Finn,Walker,Male,fwalker@ByteWare.com,2200.45,Customer Service,intern,Support Clerk,ByteWare
 Amelia,King,Female,aking@TechWorks.com,5200.6,Marketing,middle,Marketing Specialist,TechWorks
 Vitor,Trindade,Male,Vitor.trindade.cadmus@gmail.com,12200.0,IT Development,Middle,Scrum Master,Fujitsu
-Alice,Chrispin,Female,achrispin74@aol.com,82466.83084652427,IT,Analista,Java Developer,CodeSolutions
-Addison,Lulham,Female,alulham70@icloud.com,94513.8806478434,HR,Senior,Java Developer,CodeSolutions
-Alice,Blinkhorn,Male,ablinkhorn45@gmail.com,16054.381052151832,IT,Junior,Finance Analyst,VTR-TECH
-Abby,Smith,Female,asmith97@aol.com,41876.12427348207,Finance,Intern,Finance Analyst,InfoSphere
-Adolf,Pattle,Male,apattle88@aol.com,10870.54679469721,HR,Senior,Support Clerk,VTR-TECH
-Alex,Alderton,Female,aalderton17@icloud.com,34254.54423302024,Operations,Analyst,Marketing Coordinator,TechCorp
-Ada,Siaskowski,Female,asiaskowski36@icloud.com,40533.62272820007,HR,Analyst,HR Specialist,VTR-TECH
-Abdul,Blinkhorn,Female,ablinkhorn4@live.com,7423.25984655202,TECHNICAL_SUPPORT,CONTRACT,Finance Analyst,CodeSolutions
-Vitor trindade3,tridnade,Male,email,0.0,IT_DEVELOPMENT,ASSISTANT_MANAGER,saasda,das
-Adelina,Johnson,Female,ajohnson24@hotmail.com,16925.860182162498,MARKETING,ASSISTANT_MANAGER,HR Specialist,CodeSolutions
-vitor 4,rrindade,Female,sdasd,0.0,IT_DEVELOPMENT,MIDDLE,dsadas,dasda
-Adelina,Blinkhorn,Male,ablinkhorn61@live.com,36278.02762120619,SALES,HEAD_MANAGER,Marketing Coordinator,CodeSolutions
+
